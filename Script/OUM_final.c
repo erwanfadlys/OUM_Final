@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int num_students, num_courses, x, marks, course; //x placed there for loop 
+int num_students, num_courses, x, marks, course, student_evaluated; //x placed there for loop 
 long int student_id; //to store numbers with 4 bytes
 char filename; //this is where the data name is stored
 
@@ -45,21 +45,26 @@ int main(){
         perror("UNABLE TO OPEN FILE: ---> ");//to show error type
         return 0;
     }
-
     fscanf(fp, "%d", &num_students); //to scan first line of the file
     printf("\nNo. of Student: %d\n", num_students);
     fscanf(fp, "%d", &num_courses); //to scan second line of the file
     printf("No. of Courses: %d\n", num_courses);
-    fscanf(fp, "%ld", &student_id); //to scan third line of the file
-    printf("\nStudent ID: %ld\n", student_id);
-    for (x= 0; x < num_courses; x++) { //to iterate the scan based on how many course we have.
-        course += 1;//aesthetic for course counter
 
-        fscanf(fp, "%d", &marks);
-        printf("\n\t\tCourse #%d : %d\t\n", course, marks);
-        marking();
-    }
-    
+    while (student_evaluated != num_students){
+        student_evaluated += 1; //to close the loop once condition achieved.
+        printf("Student Evaluated: %d\n", student_evaluated); //testing parameter 
+        
+        fscanf(fp, "%ld", &student_id); //to scan third line of the file
+        printf("\nStudent ID: %ld\n", student_id);
+        course = 0; // this to ensure that the course# output does not repeatedly change.
+
+        for (x= 0; x < num_courses; x++) { //to iterate the scan based on how many course we have.
+            course += 1;//aesthetic for course counter
+            fscanf(fp, "%d", &marks);
+            printf("\n\t\tCourse #%d : %d\t\n", course, marks);
+            marking();
+        }
+    }    
     fclose(fp);
 }
 
