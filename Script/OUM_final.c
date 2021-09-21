@@ -4,12 +4,13 @@
 int num_students, num_courses, x, marks, course; //x placed there for loop 
 long int student_id; //to store numbers with 4 bytes
 char filename; //this is where the data name is stored
+
 void intro(){
     printf("SIMPLE GRADING SYSTEM V1.1\n\n");
 }
 
-void marking(){
-    if (marks >=80 && marks <=100){ // STAR is to check the pointer value not the address. 
+void marking(){ //marking function seperated from main, flexibility in coding the main func.
+    if (marks >=80 && marks <=100){ 
             printf("\t\t%s", "Grade: A\n\n");
         }
         else if (marks >= 70 && marks <= 79){ 
@@ -21,11 +22,8 @@ void marking(){
         else if (marks >=50 && marks <=59){
             printf("\t\t%s", "Grade: D\n\n");
         }
-        else if (marks >=40 && marks <=49){
-            printf("\t\t%s", "Grade: E\n\n");
-        }
-        else if (marks >=0 && marks <=39){
-            printf("\t%s", "Grade: F\n\n");
+        else if (marks >=0 && marks <=49){
+            printf("\t\t%s", "Grade: F\n\n");
         }
         else{
             printf("\t\tMARK IS NOT GRADEABLE\n\n");
@@ -38,8 +36,8 @@ void data(){
 }
 
 int main(){
-    intro();
-    data();
+    intro(); //title of the program
+    data(); //having different filename give flexibility in accessing different class/department
 
     FILE*fp;
     fp = fopen(&filename, "r"); //incompatible integer to pointer conversion passing 'char' to parameter of type 'const char *'; take the address with &
@@ -61,6 +59,7 @@ int main(){
         printf("\n\t\tCourse #%d : %d\t\n", course, marks);
         marking();
     }
+    
     fclose(fp);
 }
 
