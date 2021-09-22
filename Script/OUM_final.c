@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-int num_students, num_courses, x, y, marks, course, student_evaluated; //x placed there for loop 
+int num_students, num_courses, x, y, marks, course, student_evaluated,student_pwned, student_passed; //x placed there for loop 
 long int student_id; //to store numbers with 4 bytes
 char filename, export; //this is where the data name is stored
 float total, average_marks;
@@ -50,7 +50,6 @@ void export_file(){  //should this features inserted?? working on the implementa
     }
 }
 
-
 int main(){
     clock_t start = clock(); //checking runtime of the program starting here.
     intro(); //title of the program
@@ -87,20 +86,26 @@ int main(){
                 printf("\tAverage Marks = %.2f\n", average_marks);
 
                 if (average_marks >= 50){
-                    printf("\n\t\t PROCEED TO THE NEXT SEMESTER...\n");
+                    printf("\n\t\tPROCEED TO THE NEXT SEMESTER...\n");
+                    student_passed += 1;
                 }
                 else {
-                    printf("\n\t\t UNFORTUNATELY YOU DID NOT PASS\n\t\tAPPEALING FOR MARK DISABLED IF MARK BELOW 50\n");
+                    printf("\n\t\tUNFORTUNATELY YOU DID NOT PASS\n\t\tAPPEALING FOR MARK DISABLED IF MARK BELOW 50\n");
+                    student_pwned += 1; //
                 }
-
                 y = 0; //to reset the trigger
                 total = 0; //to reset the total variable
             }
         }
     } 
+    printf("\n\nPassed\t\tFailed");
+    printf("\n%d\t\t%d\n", student_passed, student_pwned);
+
     fclose(fp);
     clock_t stop = clock(); //to check how efficient the code is, im using the time.h to monitor the code runtime.
     double elapsed = (double)(stop - start) * 1000.0 / CLOCKS_PER_SEC;
-    printf("\nProgram runtime is %.3f ms\n", elapsed);
+    printf("\n\n_________________________________________________________");
+    printf("\nProgram runtime is %.3f ms", elapsed);
+    printf("\n_________________________________________________________\n");
 }
 
