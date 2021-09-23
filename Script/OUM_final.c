@@ -8,7 +8,7 @@ char filename, export; //this is where the data name is stored
 float total, average_marks;
 
 void intro(){
-    printf("SIMPLE GRADING SYSTEM V1.1\n\n");
+    printf("SIMPLE GRADING SYSTEM V1.5\n\n");
 }
 
 void marking(){ //marking function seperated from main, flexibility in coding the main func.
