@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-int num_students, num_courses, x, y, marks, course, student_evaluated,student_pwned, student_passed; //x placed there for loop 
+int num_students, num_courses, x, course_evaluated, marks, course, student_evaluated,student_pwned, student_passed; //x placed there for loop 
 long int student_id; //to store numbers with 4 bytes
 char filename, export; //this is where the data name is stored
 float total, average_marks;
@@ -33,7 +33,7 @@ void marking(){ //marking function seperated from main, flexibility in coding th
 }
 
 void data(){ //will not be hardcoded instead. Allow for future changes.
-    printf("Please enter file name: ");
+    printf("Please enter the file name: ");
     scanf("%s", &filename);
 }
 
@@ -78,9 +78,9 @@ int main(){
             printf("\n\tCourse #%d : %d\t\n", course, marks);
             marking(); //call out function for
             total += marks; //to store marks scanned into total variable
-            y += 1; //use this as trigger for exit condition
+            course_evaluated += 1; //use this as trigger for exit condition
 
-            if (y == num_courses){
+            if (course_evaluated == num_courses){
                 printf("\tTotal Marks = %2.0f\n", total);
                 average_marks = total / num_courses;
                 printf("\tAverage Marks = %.2f\n", average_marks);
@@ -93,7 +93,7 @@ int main(){
                     printf("\n\t\tUNFORTUNATELY YOU DID NOT PASS\n\t\tAPPEALING FOR MARK DISABLED IF MARK BELOW 50\n");
                     student_pwned += 1; //
                 }
-                y = 0; //to reset the trigger
+                course_evaluated = 0; //to reset the trigger
                 total = 0; //to reset the total variable
             }
         }
@@ -102,10 +102,14 @@ int main(){
     printf("\n%d\t\t%d\n", student_passed, student_pwned);
 
     fclose(fp);
+    
     clock_t stop = clock(); //to check how efficient the code is, im using the time.h to monitor the code runtime.
     double elapsed = (double)(stop - start) * 1000.0 / CLOCKS_PER_SEC;
     printf("\n\n_________________________________________________________");
     printf("\nProgram runtime is %.3f ms", elapsed);
     printf("\n_________________________________________________________\n");
+    printf("\nerwanfadlys@oum.edu.my| matric number 881221495119001\n\n");
+
 }
+
 
