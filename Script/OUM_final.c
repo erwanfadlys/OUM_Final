@@ -91,7 +91,7 @@ int main(){
     printf("\n\n_________________________________________________________");
     printf("\nProgram runtime is %.3f second", elapsed);
     printf("\n_________________________________________________________\n");
-    printf("\nerwanfadlys@oum.edu.my | matric number 881221495119001\n\n");
+    printf("\nerwanfadlys@oum.edu.my | matric number 881221495119001\n");
 }   
 
 
