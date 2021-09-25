@@ -4,12 +4,8 @@
 
 int num_students, num_courses, x, course_evaluated, marks, course, student_evaluated,student_pwned, student_passed; //x placed there for loop 
 long int student_id; //to store numbers with 4 bytes
-char filename, export; //this is where the data name is stored
+char filename, export;//this is where the data name is stored
 float total, average_marks;
-
-void intro(){
-    printf("SIMPLE GRADING SYSTEM V1.1\n\n");
-}
 
 void marking(){ //marking function seperated from main, flexibility in coding the main func.
     if (marks >=80 && marks <=100){ 
@@ -37,22 +33,9 @@ void data(){ //will not be hardcoded instead. Allow for future changes.
     scanf("%s", &filename);
 }
 
-void export_file(){  //should this features inserted?? working on the implementation
-    printf("\nExport the file as text?: y / n : ");
-    scanf("%s", &export);
-
-    if(export == 'y'){
-        printf("\nPlease wait for the file to be exported.\nProgram ended.\n");
-        freopen("output.txt","w",stdout);
-    }
-    else{
-        printf("\nProgram ended.\n");
-    }
-}
-
 int main(){
     clock_t start = clock(); //checking runtime of the program starting here.
-    intro(); //title of the program
+    printf("\n\nSIMPLE GRADING SYSTEM V1.5\n\n");//title of the program
     data(); //having different filename give flexibility in accessing different class/department
     
     FILE*fp = fopen(&filename, "r"); //incompatible integer to pointer conversion passing 'char' to parameter of type 'const char *'; take the address with &
@@ -104,12 +87,11 @@ int main(){
     fclose(fp);
     
     clock_t stop = clock(); //to check how efficient the code is, im using the time.h to monitor the code runtime.
-    double elapsed = (double)(stop - start) * 1000.0 / CLOCKS_PER_SEC;
+    float elapsed = (float)(stop - start) * 1000.0 / CLOCKS_PER_SEC;
     printf("\n\n_________________________________________________________");
-    printf("\nProgram runtime is %.3f ms", elapsed);
+    printf("\nProgram runtime is %.3f second", elapsed);
     printf("\n_________________________________________________________\n");
-    printf("\nerwanfadlys@oum.edu.my| matric number 881221495119001\n\n");
-
-}
+    printf("\nerwanfadlys@oum.edu.my | matric number 881221495119001\n\n");
+}   
 
 
