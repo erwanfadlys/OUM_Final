@@ -5,16 +5,15 @@
 struct student 
 {
     char name [50];
-    char studentID [50];
+    char studentID [6];
     float cgpa;
 };
-//void sortStudentID( char studentID [50]);//aaargghhhhhhhhhhhh
 
+void sortByStr(struct student s[], int n);
 
 int main()
 {
     struct student *ptr;
-    struct student temp;
     int i, j, n, result;
     float sum; 
    
@@ -26,19 +25,20 @@ int main()
 
     for(i = 0; i < n; ++i) //this will loop the numbers of student entered as the i is less than n
     {
-        //this is where the input requested by programme
+        //this is where the data accepted
         printf("\nStudent %d :", i+1);
         printf("\nEnter name : ");
         scanf("%s", (ptr+i)->name); //(ptr+i) used to allocate memory dynamically
         printf("Enter ID number : ");
         scanf("%s", (ptr+i)->studentID);
         printf("Enter CGPA : ");
-        scanf("%f", &(ptr+i)->cgpa);//& used to point the float into cgpa struct, why? wallahualam..
+        scanf("%f", &(ptr+i)->cgpa);//& used to point the float into cgpa struct, why? wallahualam.
     }
 
-    //sortStudentID();
-    //intsort (&ptr);//need to pass what here................................................................
+    
 
+    sortByFloat(ptr, n);
+    
     //this is where the information displayed.
     printf("\n\nDisplaying Information:\n\n");
     printf("No\t Name\t  ID\t CGPA\n");
@@ -54,25 +54,23 @@ int main()
     return 0;
 }
 
-/*function for int sort*/
+/*function for chart sort*/
 
 
-/*
-void sortStudentID( char studentID [50])
-{
-    struct student temp;
+
+void sortByStr(struct student s[], int n){ //
     int i, j;
-    char name[50];
-    for(i = 0; i < 3-1; i++) {
-        for (j = i+1; j <3; j++){
-            if (strcmp(name[i],[name[j])>0){
-
-                strcpy(temp, name[i]);
-                strcpy(name[i], name[j]);
-                strcpy(name[j], temp);
-
+    struct student temp;// create temporary struct, copy student struct and initialise with temp
+    
+    //loop
+    for (i=0; i<n-1; i++) {
+        for (j=i+1; j<n; j++) { //i+1 means next value of that array
+            //if (s[i].cgpa>s[j].cgpa){ //compare the value
+            if(strcmp(s[i].name,s[j].name) > 0 ){
+                temp=s[i]; 
+                s[i]=s[j];
+                s[j]=temp;
             }
         }
     }
-}*/
-            
+}
