@@ -11,15 +11,16 @@ struct student
 
 void sortByName(struct student sortName[], int n);
 void sortByCgpa(struct student sortCgpa[], int n);
-void displayInformation(struct student nameSort[], int n);
+void displayInformation(struct student output[], int n);
 
-int i, j, n; //declared as global due to repetetive of var. This however will not impede the function and main script as those explicitly locally used.
+int i, j, n; //declared as global due to repetitiveness of var. This however will not impede the function and main script as those explicitly local.
 
 int main()
 {
     struct student *ptr;
     int result;
-    float sum;
+    float sum, highest;
+    char topStudent [10];
     
     printf("Enter the number of student: ");
     scanf("%d", &n);
@@ -40,44 +41,39 @@ int main()
     }
     
     displayInformation(ptr, n);
-    printf("\nChoose sorting method\n1 for Name and 2 for CGPA: ");
+    printf("\nChoose sorting method\n=====================\n(1) for Name and (2) for CGPA: ");
     scanf("%d", &result);
-
-    if (result == 1){
+    
+    switch (result)
+    {
+    case 1: 
         sortByName(ptr, n);
         printf("\n\nNAME ASCENDING");
         displayInformation(ptr, n);
-    }
-    else if(result == 2){
+        break;
+    
+    case 2: 
         sortByCgpa(ptr, n);
         printf("\n\nCGPA ASCENDING");
         displayInformation(ptr, n);
+        break;
+
+    default:
+        printf("\n!* No key provided were detected *!\nProceed displaying average cgpa for %d student.\n\n", n);
+        break;
     }
 
-    else{
-        printf("\n!* No key given detected *!\nProceed displaying average cgpa for %d student.\n\n", n);
-    }
     //calculating the average cgpa for total student
     for (i = 0; i < n; ++i){ 
-        sum += ptr[i].cgpa; //summation of struct student.cgpa
+        sum += ptr[i].cgpa;//summation of struct student.cgpa
+        if (ptr[i].cgpa>highest){
+            highest = ptr[i].cgpa;
+            strcpy(topStudent, ptr[i].name );
+        }
     }
 
     printf("\nAverage CGPA = %.2f", sum/n);//display the average value of cgpa
-    
-
-
-
-    printf("\nTotal number of %d students assesed. ", n);
-    for (i=0; i<n ; i++){
-        printf("%s ", ptr[i].name);
-        if(i<n){
-            printf(",");
-        }
-        else if (i< n-1){
-            printf("&");
-        }
-    }
-    printf("asd");
+    printf("\n\nThe highest CGPA goes to %s which scored %.2f.", topStudent, highest);//
     printf("\n\nEnd of program.\n\n");
     return 0;
 }
@@ -102,7 +98,6 @@ void sortByName(struct student sortName[], int n){ //
 
     for (i=0; i<n-1; i++) {
         for (j=i+1; j<n; j++) { //i+1 means next value of that array
-           
             if(strcmp(sortName[i].name,sortName[j].name) > 0 ){//selection sort using string compare
                 temp=sortName[i]; 
                 sortName[i]=sortName[j];
