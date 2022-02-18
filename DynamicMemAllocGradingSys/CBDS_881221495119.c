@@ -1,31 +1,32 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stdlib.h> 
+#include <string.h> //used for string functions lib
+#include <errno.h> //
 
-struct student 
+struct student //node
 {
-    char name [50];
-    char studentID [50];
-    float cgpa;
+    char name [50]; //linked list of names
+    char studentID [10]; //linked list of students ID
+    float cgpa; //linked list of cgpa
 };
 
-void sortByName(struct student sortName[], int n);
-void sortByCgpa(struct student sortCgpa[], int n);
+void sortByName(struct student sortName[], int n); //function prototype for sortName
+void sortByCgpa(struct student sortCgpa[], int n); //function prototype for sortCGPA
 void displayInformation(struct student output[], int n);
-
-int i, j, n; //declared as global due to repetitiveness of var. This however will not impede the function and main script as those explicitly local.
+int i, j, n; //declared as global due to repetitiveness of variable. This however will not impede the function and main script as those explicitly locally used.
 
 int main()
 {
-    struct student *ptr;
-    int result;
-    float sum, highest;
+    struct student *ptr; //node pointer initialised to ptr
+    int sortMethod; //enriching the UI of the program
+    float sum, highest; //to provide analysis of results of the program
     char topStudent [10];
     
-    printf("Enter the number of student: ");
-    scanf("%d", &n);
+    printf("\nEnter the number of student: ");
+    scanf("%d", &n); //this will be the amount of students.
+    
 
-    // allocating memory for n numbers of struct student
+    // allocating memory for n numbers of node
     ptr = (struct student*) malloc(n * sizeof(struct student));
 
     for(i = 0; i < n; ++i) //this will loop the numbers of student entered as the i is less than n
@@ -36,15 +37,25 @@ int main()
         scanf("%s", ptr[i].name); //(ptr+i) used to access menory and place a data
         printf("Enter ID number : ");
         scanf("%s", ptr[i].studentID);
+        if (strlen(ptr[i].studentID) < 6 || strlen(ptr[i].studentID) > 6){
+            printf("\n*WARNING*\nPlease enter school ID number which consist of 6 character. EXAMPLE : AAXXXX\n");
+            printf("\nProgram will now terminate. "); 
+            exit(EXIT_FAILURE);
+        }
+
         printf("Enter CGPA : ");
-        scanf("%f", &ptr[i].cgpa);//& used to point the float into cgpa struct, why? wallahualam.
+        scanf("%f", &ptr[i].cgpa);
+        if (ptr[i].cgpa > 4){
+            printf("\nPlease enter a valid CGPA value. EXAMPLE : Less than or equal to 4.00.\n\nProgram will now terminate.\n\n");
+            exit(EXIT_FAILURE);
+        }
+
     }
     
-    displayInformation(ptr, n);
     printf("\nChoose sorting method\n=====================\n(1) for Name and (2) for CGPA: ");
-    scanf("%d", &result);
+    scanf("%d", &sortMethod);
     
-    switch (result)
+    switch (sortMethod)
     {
     case 1: 
         sortByName(ptr, n);
@@ -60,6 +71,7 @@ int main()
 
     default:
         printf("\n!* No key provided were detected *!\nProceed displaying average cgpa for %d student.\n\n", n);
+        displayInformation(ptr, n);
         break;
     }
 
@@ -68,13 +80,17 @@ int main()
         sum += ptr[i].cgpa;//summation of struct student.cgpa
         if (ptr[i].cgpa>highest){
             highest = ptr[i].cgpa;
-            strcpy(topStudent, ptr[i].name );
+            strcpy(topStudent, ptr[i].name);
         }
     }
 
     printf("\nAverage CGPA = %.2f", sum/n);//display the average value of cgpa
     printf("\n\nThe highest CGPA goes to %s which scored %.2f.", topStudent, highest);//
+    printf("\nOnly single student will be selected according to alphabetic order.");
     printf("\n\nEnd of program.\n\n");
+
+    //reset the memory allocated into the struct
+
     return 0;
 }
 
