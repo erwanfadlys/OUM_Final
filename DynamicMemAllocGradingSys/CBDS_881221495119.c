@@ -1,18 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h> 
 #include <string.h> //used for string functions lib
-#include <errno.h> //
+
 
 struct student //node
 {
     char name [50]; //linked list of names
-    char studentID [10]; //linked list of students ID
+    char studentID [6]; //linked list of students ID
     float cgpa; //linked list of cgpa
 };
 
 void sortByName(struct student sortName[], int n); //function prototype for sortName
 void sortByCgpa(struct student sortCgpa[], int n); //function prototype for sortCGPA
 void displayInformation(struct student output[], int n);
+
 int i, j, n; //declared as global due to repetitiveness of variable. This however will not impede the function and main script as those explicitly locally used.
 
 int main()
@@ -22,24 +23,25 @@ int main()
     float sum, highest; //to provide analysis of results of the program
     char topStudent [10];
     
-    printf("\nEnter the number of student: ");
-    scanf("%d", &n); //this will be the amount of students.
-    
+    ptr = (struct student*) malloc(n * sizeof(struct student)); // allocating memory for n numbers of node
 
-    // allocating memory for n numbers of node
-    ptr = (struct student*) malloc(n * sizeof(struct student));
+    printf("\nEnter the number of student: ");
+    if (scanf("%d", &n) == 1){//to check the input. Scanf conversion return 1 upos success.
+    }
+    else{
+        printf("\nPlease enter an integer.\nProgram will now terminate.\n\n");
+        exit(EXIT_FAILURE);//can use exit(1) here.
+    }
 
     for(i = 0; i < n; ++i) //this will loop the numbers of student entered as the i is less than n
     {
         //this is where the data accepted
-        printf("\nStudent %d :", i+1);
         printf("\nEnter name : ");
         scanf("%s", ptr[i].name); //(ptr+i) used to access menory and place a data
         printf("Enter ID number : ");
         scanf("%s", ptr[i].studentID);
         if (strlen(ptr[i].studentID) < 6 || strlen(ptr[i].studentID) > 6){
-            printf("\n*WARNING*\nPlease enter school ID number which consist of 6 character. EXAMPLE : AAXXXX\n");
-            printf("\nProgram will now terminate. "); 
+            printf("\n*WARNING*\nPlease enter school ID number which consist of 6 character. EXAMPLE : AAXXXX\nProgram will now terminate.\n\n"); 
             exit(EXIT_FAILURE);
         }
 
@@ -49,7 +51,6 @@ int main()
             printf("\nPlease enter a valid CGPA value. EXAMPLE : Less than or equal to 4.00.\n\nProgram will now terminate.\n\n");
             exit(EXIT_FAILURE);
         }
-
     }
     
     printf("\nChoose sorting method\n=====================\n(1) for Name and (2) for CGPA: ");
@@ -65,7 +66,7 @@ int main()
     
     case 2: 
         sortByCgpa(ptr, n);
-        printf("\n\nCGPA ASCENDING");
+        printf("\n\nCGPA DESCENDING");
         displayInformation(ptr, n);
         break;
 
@@ -85,12 +86,21 @@ int main()
     }
 
     printf("\nAverage CGPA = %.2f", sum/n);//display the average value of cgpa
-    printf("\n\nThe highest CGPA goes to %s which scored %.2f.", topStudent, highest);//
-    printf("\nOnly single student will be selected according to alphabetic order.");
-    printf("\n\nEnd of program.\n\n");
+    printf("\n\nThe highest CGPA goes to %s which scored %.2f.\n", topStudent, highest);
 
-    //reset the memory allocated into the struct
+    char rerun;
 
+    printf("\nRerun program? 'y' for Yes or 'n' for No : ");
+    scanf("%s", &rerun);
+    
+    if (rerun == 'y'){
+        free(ptr);
+        return main();
+    }
+    else{
+        printf("\n\nEnd of program.\n\n");
+        printf("********************************\nerwanfadlys@oum.edu.my - 881221495119001\n\n");
+    }
     return 0;
 }
 
@@ -100,7 +110,7 @@ void sortByCgpa(struct student sortCgpa[], int n){
     
     for (i=0; i<n-1; i++) { //SIZE - 1 SO WE COMPARE THE OTHER ONE NOT THE SAME ONE
         for (j=i+1; j<n; j++) { //i+1 means next value of that array as sebelah i
-            if (sortCgpa[i].cgpa>sortCgpa[j].cgpa){ //compare the value //compare 1st value greater than 2nd value
+            if (sortCgpa[i].cgpa<sortCgpa[j].cgpa){ //compare the value //compare 1st value greater than 2nd value
                 temp=sortCgpa[i]; //use temp for tahanan sementara..supaya value tak hilang 
                 sortCgpa[i]=sortCgpa[j]; //value kedua masuk value pertama
                 sortCgpa[j]=temp; //temp masuk ke dalam value kedua
