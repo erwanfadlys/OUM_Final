@@ -3,11 +3,11 @@
 #include <string.h> //used for string functions lib
 
 
-struct student //node
+struct student 
 {
-    char name [50]; //linked list of names
-    char studentID [6]; //linked list of students ID
-    float cgpa; //linked list of cgpa
+    char studentName [10]; //linked list of names
+    char studentID [10]; //linked list of students ID
+    float studentCgpa; //linked list of cgpa
 };
 
 void sortByName(struct student sortName[], int n); //function prototype for sortName
@@ -26,7 +26,7 @@ int main()
     ptr = (struct student*) malloc(n * sizeof(struct student)); // allocating memory for n numbers of node
 
     printf("\nEnter the number of student: ");
-    if (scanf("%d", &n) == 1){//to check the input. Scanf conversion return 1 upos success.
+    if (scanf("%d", &n) == 1){//to check the input. Scanf conversion return 1 upon success.
     }
     else{
         printf("\nPlease enter an integer.\nProgram will now terminate.\n\n");
@@ -37,7 +37,7 @@ int main()
     {
         //this is where the data accepted
         printf("\nEnter name : ");
-        scanf("%s", ptr[i].name); //(ptr+i) used to access menory and place a data
+        scanf("%s", ptr[i].studentName); //(ptr+i) used to access menory and place a data
         printf("Enter ID number : ");
         scanf("%s", ptr[i].studentID);
         if (strlen(ptr[i].studentID) < 6 || strlen(ptr[i].studentID) > 6){
@@ -46,8 +46,8 @@ int main()
         }
 
         printf("Enter CGPA : ");
-        scanf("%f", &ptr[i].cgpa);
-        if (ptr[i].cgpa > 4){
+        scanf("%f", &ptr[i].studentCgpa);
+        if (ptr[i].studentCgpa > 4){
             printf("\nPlease enter a valid CGPA value. EXAMPLE : Less than or equal to 4.00.\n\nProgram will now terminate.\n\n");
             exit(EXIT_FAILURE);
         }
@@ -78,10 +78,10 @@ int main()
 
     //calculating the average cgpa for total student
     for (i = 0; i < n; ++i){ 
-        sum += ptr[i].cgpa;//summation of struct student.cgpa
-        if (ptr[i].cgpa>highest){
-            highest = ptr[i].cgpa;
-            strcpy(topStudent, ptr[i].name);
+        sum += ptr[i].studentCgpa;//summation of struct student.cgpa
+        if (ptr[i].studentCgpa>highest){
+            highest = ptr[i].studentCgpa;
+            strcpy(topStudent, ptr[i].studentName);
         }
     }
 
@@ -110,7 +110,7 @@ void sortByCgpa(struct student sortCgpa[], int n){
     
     for (i=0; i<n-1; i++) { //SIZE - 1 SO WE COMPARE THE OTHER ONE NOT THE SAME ONE
         for (j=i+1; j<n; j++) { //i+1 means next value of that array as sebelah i
-            if (sortCgpa[i].cgpa<sortCgpa[j].cgpa){ //compare the value //compare 1st value greater than 2nd value
+            if (sortCgpa[i].studentCgpa<sortCgpa[j].studentCgpa){ //compare the value //compare 1st value greater than 2nd value
                 temp=sortCgpa[i]; //use temp for tahanan sementara..supaya value tak hilang 
                 sortCgpa[i]=sortCgpa[j]; //value kedua masuk value pertama
                 sortCgpa[j]=temp; //temp masuk ke dalam value kedua
@@ -124,7 +124,7 @@ void sortByName(struct student sortName[], int n){ //
 
     for (i=0; i<n-1; i++) {
         for (j=i+1; j<n; j++) { //i+1 means next value of that array
-            if(strcmp(sortName[i].name,sortName[j].name) > 0 ){//selection sort using string compare
+            if(strcmp(sortName[i].studentName,sortName[j].studentName) > 0 ){//selection sort using string compare
                 temp=sortName[i]; 
                 sortName[i]=sortName[j];
                 sortName[j]=temp;
@@ -138,7 +138,7 @@ void displayInformation(struct student output[], int n){
         printf("\n\nDisplaying Information:\n\n");
         printf("No.\tName\t\tID\t\tCGPA\n");
         for(i = 0; i < n; ++i){
-            printf("%d\t%s\t\t%s\t\t%.2f\n",i+1, output[i].name, output[i].studentID, output[i].cgpa);
+            printf("%d\t%s\t\t%s\t\t%.2f\n",i+1, output[i].studentName, output[i].studentID, output[i].studentCgpa);
         }
     }
 }
