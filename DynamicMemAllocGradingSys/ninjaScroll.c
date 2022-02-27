@@ -64,13 +64,13 @@ void acceptData(){
        if (strlen(ptr->studentId) < 6 || strlen(ptr->studentId) > 6){
             printf("\n*WARNING*\n\nPlease enter school ID number which consist of 6 character. EXAMPLE : AAXXXX\n\nYou have entered %lu character.\nProgram will now terminate.\n\n", strlen(ptr->studentId)); 
             exit(EXIT_FAILURE);
-        } 
+       } 
        
        printf("Enter student CGPA: ");
-       scanf("%f", &ptr->studentCgpa);
-
-
-
+       if ((scanf("%f", &ptr->studentCgpa))== 0 || ptr->studentCgpa > 4 || ptr->studentCgpa < 0) {
+              printf("\n*WARNING*\n\nPlease enter a valid CGPA value. EXAMPLE : Less than or equal to 4.00.\nProgram will now terminate.\n\n");
+              exit(EXIT_FAILURE);
+       };
 
        /*set the next node address to NULL indicating end of linked list*/
        ptr -> next = NULL;
@@ -106,7 +106,7 @@ void sortData(){
                             strcpy(tempSort1->studentId , tempSort2->studentId);
                             strcpy(tempSort2->studentId , tempStr);
 
-                            /*Copy int value from tempSort1 into temp node address */
+                            /*Copy float value from tempSort1 into temp node address */
                             tempFloat = tempSort1->studentCgpa;
                             tempSort1->studentCgpa = tempSort2->studentCgpa;
                             tempSort2->studentCgpa = tempFloat;
